@@ -11,7 +11,9 @@ import com.sv.udb.controllers.WarehouseController;
 import com.sv.udb.models.Piece;
 import com.sv.udb.models.Provider;
 import com.sv.udb.models.Warehouse;
+import com.sv.udb.utilities.ReportGenerator;
 import com.sv.udb.utilities.Utils;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -47,6 +49,12 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         clear();
+        
+        dtpFrom.setFormats(new SimpleDateFormat("dd/MM/yyyy"));
+        dtpTo.setFormats(new SimpleDateFormat("dd/MM/yyyy"));
+        dtpFrom.getEditor().setEditable(false);
+        dtpTo.getEditor().setEditable(false);
+        
     }
 
     /**
@@ -74,6 +82,14 @@ public class MainFrame extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        dtpFrom = new org.jdesktop.swingx.JXDatePicker();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        dtpTo = new org.jdesktop.swingx.JXDatePicker();
+        btnReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -221,6 +237,89 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Bodegas", jPanel1);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel6.setText("Desde:");
+
+        dtpFrom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dtpFromActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Hasta:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("Datos del reporte");
+
+        dtpTo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dtpToActionPerformed(evt);
+            }
+        });
+
+        btnReport.setText("Imprimir");
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnReport)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(dtpFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(43, 43, 43)
+                            .addComponent(jLabel7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(dtpTo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel5)))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(dtpFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(dtpTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReport)
+                .addGap(0, 13, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(86, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(164, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Reportes", jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -338,6 +437,26 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+        
+        try {
+            String from = new SimpleDateFormat("yyyy-MM-dd").format(dtpFrom.getDate());
+            String to = new SimpleDateFormat("yyyy-MM-dd").format(dtpTo.getDate());
+
+            ReportGenerator.detailReport(from, to);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Llene ambos campos");
+        } 
+    }//GEN-LAST:event_btnReportActionPerformed
+
+    private void dtpFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dtpFromActionPerformed
+        dtpTo.getMonthView().setLowerBound(dtpFrom.getDate());
+    }//GEN-LAST:event_dtpFromActionPerformed
+
+    private void dtpToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dtpToActionPerformed
+        dtpFrom.getMonthView().setUpperBound(dtpTo.getDate());
+    }//GEN-LAST:event_dtpToActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -376,15 +495,23 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnReport;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbPiece;
     private javax.swing.JComboBox<String> cmbProvider;
+    private org.jdesktop.swingx.JXDatePicker dtpFrom;
+    private org.jdesktop.swingx.JXDatePicker dtpTo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblDate;
